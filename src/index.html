@@ -4,81 +4,137 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Growing</title>
+    <title>Softimo Enterprise</title>
 </head>
 <body style="display: flex;">
-    <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="max-width: 20%; min-height: 100%;">
-        <div class="accordion" id="accordionExample" >
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Accordion Item #1
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                </div>
+    <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="max-width: 30%;">
+        <div class="accordion" id="accordionItems" style="height: 100%; display:block;">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+               Ventas
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <ul>
+                  <li>
+                    <a href="#/nueva_venta" id="btn_nueva_venta">Nueva venta</a>
+                  </li>
+                  <li>
+                    <a href="#/cuenta_corriente" id="btn_cc">Cuenta Corriente</a>
+                  </li>
+                  <li>
+                    <a href="#/presupuesto" id="btn_presupuesto">Presupuesto</a>
+                  </li>
+                   <li>
+                    <a href="#/facturacion" id="btn_facturacion">Facturacion</a>
+                  </li>
+                </ul>
               </div>
             </div>
+          </div>
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Accordion Item #2
+                 Logistica
                 </button>
               </h2>
               <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                  <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                  <ul>
+                    <li>
+                      <a href="#/inventario" id="btn_inventario">Inventarios</a>
+                    </li>
+                    <li>
+                      <a href="#/pedidos" id="btn_pedidos">Pedidos</a>
+                    </li>
+                     <li>
+                      <a href="#/transporte" id="btn_transporte">Transporte</a>
+                    </li>
+                     <li>
+                      <a href="#/almacenes" id="btn_transporte">Almacenes</a>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
             <div class="accordion-item" >
               <h2 class="accordion-header" id="headingThree">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Accordion Item #3
+                 Compras
                 </button>
               </h2>
               <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                  <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                  <ul>
+                    <li>
+                      <a href="#/oc" id="btn_oc">Orden de compra</a>
+                    </li>
+                    <li>
+                      <a href="#/transito" id="btn_transito">Transito</a>
+                    </li>
+                  </ul> 
                 </div>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+               Facturacion
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <ul>
+                  <li>
+                    <a href="#/facturas" id="btn_facturas">Facturas</a>
+                  </li>
+                  <li>
+                    <a href="#/remitos" id="btn_remito">Remitos</a>
+                  </li>
+                  <li>
+                    <a href="#/notascredito" id="btn_nc">Notas de credito</a>
+                  </li>
+                  <li>
+                    <a href="#/notasdebito" id="btn_nd">Notas de debito</a>
+                  </li>
+                </ul>   
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Configuracion
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <ul>
+                  <li>
+                    <a href="#/abm_clientes" id="clientes">Clientes</a>
+                  </li>
+                  <li>
+                    <a href="#/abm_proveedores" id="proveedores">Proveedores</a>
+                  </li>
+                    <a href="#/abm_depositos" id="depositos">Almacenes</a>
+                  </li>
+                  <li>
+                    <a href="#/abm_facturacion" id="facturacion">Facturacion</a>
+                  </li>
+                  <li>
+                    <a href="#/abm_productos" id="productos">Productos</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
 
         </div>
-    <div id="window" class="container-fluid">
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+    <div id="windowroot" class="container-fluid">
+        
     
 </body>
 </html>
