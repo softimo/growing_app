@@ -1,7 +1,7 @@
-import Productos from './views/configuracion/productos'
+import Productos from './controllers/configuracion/productos'
 
 const content =  document.getElementById("windowroot")
-export function router(route) {
+export async function router(route) {
     content.innerHTML = ""
   switch (route) {
     case "#/abm_clientes":
@@ -15,7 +15,7 @@ export function router(route) {
     case "#/abm_facturacion":
       break;
     case "#/abm_productos":
-        return content.appendChild(Productos())
+        return content.appendChild(await Productos())
      
 
     case "#/facturas":
