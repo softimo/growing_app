@@ -1,63 +1,44 @@
-import Productos from './controllers/configuracion/productos'
+import Productos from "./controllers/configuracion/abm_productos";
 
-const content =  document.getElementById("windowroot")
+const content = document.getElementById("windowroot");
 export async function router(route) {
-    content.innerHTML = ""
+  content.innerHTML = "";
   switch (route) {
-    case "#/abm_clientes":
-        break;   
     case "#/abm_proveedores":
+      break;
+
+    case "#/abm_clientes":
       break;
 
     case "#/abm_depositos":
       break;
 
-    case "#/abm_facturacion":
+    case " #/abm_afip":
       break;
+
     case "#/abm_productos":
-        return content.appendChild(await Productos())
-     
-
-    case "#/facturas":
-      break;
-
-    case "#/remitos":
-      break;
-
-    case "#/notascredito":
-      break;
-
-    case "#/notasdebito":
-      break;
-
-    case "#/oc":
-      break;
-
-    case "#/transito":
-      break;
-
-    case "#/inventario":
+      return content.appendChild(await Productos());
+  
+    case "#/distribucion":
       break;
 
     case "#/pedidos":
       break;
 
-    case "#/transporte":
+    case "#/stock":
       break;
 
-    case "#/almacenes":
+    case "#/oc":
       break;
 
-    case "#/nueva_venta":
+    case "#/facturacion":
       break;
-
     case "#/cuenta_corriente":
       break;
 
     case "#/presupuesto":
       break;
-
-    case "#/facturacion":
+    case "#/caja":
       break;
 
     default:

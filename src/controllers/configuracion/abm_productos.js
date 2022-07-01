@@ -27,6 +27,8 @@ export default async () => {
           swal("", "Producto creado con exito", "success");
         }
         break;
+      case "btn_volver":
+        
       default:
         break;
     }
