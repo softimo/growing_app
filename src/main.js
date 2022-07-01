@@ -4,5 +4,4 @@ import {router} from './index.router'
 
 window.addEventListener('hashchange',()=>{
    router(window.location.hash)
-   console.log(window.location.hash)
 })

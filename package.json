@@ -12,5 +12,8 @@
   "scripts": {
     "build": "npx webpack",
     "serve": "npx webpack-dev-server"
+  },
+  "dependencies": {
+    "sweetalert": "^2.1.2"
   }
 }

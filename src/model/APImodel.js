@@ -3,7 +3,17 @@ export async function getAll(url){
     return await response.json()
 }
 
-export async function postBody(url, body){}
+export async function postBody(url, body){
+    const response = await fetch(url, {
+        method: 'POST', 
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+      return await response;
+}
 
 export async function getById (url, id){}
 
