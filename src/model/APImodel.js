@@ -15,8 +15,23 @@ export async function postBody(url, body){
       return await response;
 }
 
-export async function getById (url, id){}
+export async function getById (url, id){
+  const urlByid = url + "?id=" + id
+  const response = await fetch (urlByid)
+  return await response.json()
+
+}
 
 export async function updatebyId(url, body){}
 
-export async function deletebyId(url, id){}
+export async function deletebyId(url, id){
+  let path =  url + "?id=" + id
+  const response = await fetch(path, {
+    method: 'DELETE', 
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  return await response;
+}

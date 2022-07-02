@@ -7,35 +7,18 @@ import {
   updatebyId,
   deletebyId,
 } from "../../model/APImodel";
-import swal from 'sweetalert';
-import moment from 'moment';
+import swal from "sweetalert";
+import moment from "moment";
 
 export default async () => {
   const productosList = Producto;
-  const url = "http://localhost:3000/sku/list";
+  const urlGetAll = "http://localhost:3000/sku/list";
+  const urlDelete = "http://localhost:3000/sku/delete";
   const divElement = document.createElement("div");
   divElement.innerHTML = productosList;
   const tbdoyElement = divElement.querySelector("#tableSkuTbody");
 
-  divElement.addEventListener("click", async (e) => {
-    switch (e.target.id) {
-      case "btnAdd":
-        divElement.innerHTML = NewProducto;
-        break;
-      case "btn_CreateProducto":
-        const res = await obteneryEnviarFormData();
-        if (res.status === 200) {
-          swal("", "Producto creado con exito", "success");
-        }
-        break;
-      case "btn_volver":
-        
-      default:
-        break;
-    }
-  });
-
-  const getAllSku = await getAll(url);
+  const getAllSku = await getAll(urlGetAll);
   getAllSku.data.forEach((sku) => {
     tbdoyElement.innerHTML += `
     <tr>
@@ -44,40 +27,91 @@ export default async () => {
       <td> ${sku.existencias}</td>
       <td> ${sku.precio}</td>
       <td> ${sku.categoria}</td>
-      <td> ${sku.createdAt}</td>
-      <td> ${sku.updatedAt}</td>
+      <td> ${moment(sku.createdAt).format("DD/MM/YYYY")}</td>
+      <td> ${moment(sku.updatedAt).format("DD/MM/YYYY")}</td>
+      <td>  <input name="selection" class="form-check-input" type="checkbox" value="${
+        sku.id
+      } ">
     </tr>
     `;
   });
 
+  divElement.querySelector("#btnDelete").addEventListener("click", async () => {
+    window.location.hash  ="/#delete_producto"
+    try {
+      let checkedCheckbox = divElement.querySelectorAll(
+        "input[type=checkbox]:checked"
+      );
+      for (const element of checkedCheckbox) {
+        await deletebyId(urlDelete, element.value);
+      }
+      swal(
+        "",
+        "Los productos seleccionados han sido eliminados con exito",
+        "success"
+      );
+      window.location.hash  ="#/abm_productos"
+      
+    } catch (e) {
+      swal("", "La operacion ha fallado", "error");
+      throw e;
+    }
+  });
+
+  divElement.querySelector("#btnUpdate").addEventListener("click", async () => {
+    window.location.hash  ="/#update_producto"
+    try {
+      let checkedCheckbox = divElement.querySelector(
+        "input[type=checkbox]:checked"
+      );
+      const data = await getById(urlDelete,checkedCheckbox.value);
+      data.data.forEach((sku) => {
+        tbdoyElement.innerHTML += `
+        <tr>
+          <input type="text" name="codigo" class="changedInput"> ${sku.codigo}</input>
+          <input type="text" name="descripcion" class="changedInput">> ${sku.descripcion}</input>
+          <input type="number" name="existencias" class="changedInput">> ${sku.existencias}</input>
+          <input type="number" name="precio" class="changedInput">> ${sku.precio}</input>
+          <input type="text" name="categoria" class="changedInput">> ${sku.categoria}</input>
+          <input type="text" disabled> ${moment(sku.createdAt).format("DD/MM/YYYY")}</input>
+          <input type="text" disabled> ${moment(sku.updatedAt).format("DD/MM/YYYY")}</input>
+          </tr>
+          <button class="btn btn-primary" id="btn_guardarcambios">Guardar</button>
+        `;
+      });
+
+
+      let btn_guardarcambios = divElement.querySelector("#btn_guardarcambios")
+      btn_guardarcambios.addEventListener("click",()=>{
+        const cambios =  divElement.querySelectorAll(".changedInput")
+        let changes = []
+        cambios.forEach(element => {
+          changes.push({field: element.name, value:element.value})
+       });
+       let updateUrl = "http://localhost:3000/sku/update"
+       const body = [checkedCheckbox.value, changes]
+       await updatebyId(updateUrl, body)
+       //PROBAR
+      })
+      
+      
+
+
+      
+      swal(
+        "",
+        "Los productos seleccionados han sido eliminados con exito",
+        "success"
+      );
+      window.location.hash  ="#/abm_productos"
+      
+    } catch (e) {
+      swal("", "La operacion ha fallado", "error");
+      throw e;
+    }
+
+
+  })
+
   return divElement;
 };
-
-async function obteneryEnviarFormData() {
-  const codigo_nuevo_producto = document.getElementById(
-    "codigo_nuevo_producto"
-  ).value;
-  const descripcion_nuevo_producto = document.getElementById(
-    "descripcion_nuevo_producto"
-  ).value;
-  const existencias_nuevo_producto = document.getElementById(
-    "existencias_nuevo_producto"
-  ).value;
-  const precio_nuevo_producto = document.getElementById(
-    "precio_nuevo_producto"
-  ).value;
-  const categoria_nuevo_producto = document.getElementById(
-    "categoria_nuevo_producto"
-  ).value;
-
-  const body = {
-    codigo: codigo_nuevo_producto,
-    descripcion: descripcion_nuevo_producto,
-    existencias: existencias_nuevo_producto,
-    precio: precio_nuevo_producto,
-    categoria: categoria_nuevo_producto,
-  };
-
-  const response = await postBody("http://localhost:3000/sku/create", body);
-  return response;
-}
