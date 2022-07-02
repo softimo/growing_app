@@ -7,7 +7,8 @@ import {
   updatebyId,
   deletebyId,
 } from "../../model/APImodel";
-import swal from 'sweetalert'
+import swal from 'sweetalert';
+import moment from 'moment';
 
 export default async () => {
   const productosList = Producto;
