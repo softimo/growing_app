@@ -14,11 +14,14 @@ export default async () => {
   const productosList = Producto;
   const urlGetAll = "http://localhost:3000/sku/list";
   const urlDelete = "http://localhost:3000/sku/delete";
+  const urlgetById = "http://localhost:3000/sku/getone";
+  const updateUrl = "http://localhost:3000/sku/update";
+
   const divElement = document.createElement("div");
   divElement.innerHTML = productosList;
   const tbdoyElement = divElement.querySelector("#tableSkuTbody");
-
   const getAllSku = await getAll(urlGetAll);
+
   getAllSku.data.forEach((sku) => {
     tbdoyElement.innerHTML += `
     <tr>
@@ -37,7 +40,7 @@ export default async () => {
   });
 
   divElement.querySelector("#btnDelete").addEventListener("click", async () => {
-    window.location.hash  ="/#delete_producto"
+    window.location.hash = "/#delete_producto";
     try {
       let checkedCheckbox = divElement.querySelectorAll(
         "input[type=checkbox]:checked"
@@ -50,8 +53,7 @@ export default async () => {
         "Los productos seleccionados han sido eliminados con exito",
         "success"
       );
-      window.location.hash  ="#/abm_productos"
-      
+      window.location.hash = "#/abm_productos";
     } catch (e) {
       swal("", "La operacion ha fallado", "error");
       throw e;
@@ -59,59 +61,82 @@ export default async () => {
   });
 
   divElement.querySelector("#btnUpdate").addEventListener("click", async () => {
-    window.location.hash  ="/#update_producto"
     try {
       let checkedCheckbox = divElement.querySelector(
         "input[type=checkbox]:checked"
       );
-      const data = await getById(urlDelete,checkedCheckbox.value);
+      const data = await getById(urlgetById, checkedCheckbox.value);
       data.data.forEach((sku) => {
-        tbdoyElement.innerHTML += `
+        tbdoyElement.innerHTML = `
         <tr>
-          <input type="text" name="codigo" class="changedInput"> ${sku.codigo}</input>
-          <input type="text" name="descripcion" class="changedInput">> ${sku.descripcion}</input>
-          <input type="number" name="existencias" class="changedInput">> ${sku.existencias}</input>
-          <input type="number" name="precio" class="changedInput">> ${sku.precio}</input>
-          <input type="text" name="categoria" class="changedInput">> ${sku.categoria}</input>
-          <input type="text" disabled> ${moment(sku.createdAt).format("DD/MM/YYYY")}</input>
-          <input type="text" disabled> ${moment(sku.updatedAt).format("DD/MM/YYYY")}</input>
+        <td>
+          <input type="text" name="codigo" class="changedInput" value=  ${
+            sku.codigo
+          }></input>
+        </td>
+        <td>
+          <input type="text" name="descripcion" class="changedInput" value=${
+            sku.descripcion
+          } > </input>
+          </td>
+          <td>  
+          <input type="number" name="existencias" class="changedInput" value= ${
+            sku.existencias
+          }> </input>
+          </td>
+        <td>
+          <input type="number" name="precio" class="changedInput" value=${
+            sku.precio
+          } > </input>
+          </td>
+        <td>
+          <input type="text" name="categoria" class="changedInput" value=${
+            sku.categoria
+          } >  </input>
+          </td>
+        <td>
+          <input type="text" disabled value = ${moment(sku.createdAt).format(
+            "DD/MM/YYYY"
+          )}> </input>
+          </td>
+        <td>
+          <input type="text" disabled value= ${moment(sku.updatedAt).format(
+            "DD/MM/YYYY"
+          )}> </input>
+          </td>
           </tr>
           <button class="btn btn-primary" id="btn_guardarcambios">Guardar</button>
         `;
       });
 
-
-      let btn_guardarcambios = divElement.querySelector("#btn_guardarcambios")
-      btn_guardarcambios.addEventListener("click",()=>{
-        const cambios =  divElement.querySelectorAll(".changedInput")
-        let changes = []
-        cambios.forEach(element => {
-          changes.push({field: element.name, value:element.value})
+      let btn_guardarcambios = divElement.querySelector("#btn_guardarcambios");
+      btn_guardarcambios.addEventListener("click", async () => {
+       window.location.hash = "#/modificar_productos";
+       const cambios = divElement.querySelectorAll(".changedInput");
+       const changes = [];
+       cambios.forEach((element) => {
+         changes.push({ field: element.name, value: element.value });
        });
-       let updateUrl = "http://localhost:3000/sku/update"
-       const body = [checkedCheckbox.value, changes]
-       await updatebyId(updateUrl, body)
-       //PROBAR
-      })
-      
-      
+   
+       const body = { id: checkedCheckbox.value, changes: changes };
+   
+       await updatebyId(updateUrl, body);
+   
+       swal("", "El producto selecionado ha sido modificado con exito", "success");
+   
+       tbdoyElement.innerHTML = "";
+       window.location.hash = "#/abm_productos";
+     });
 
 
-      
-      swal(
-        "",
-        "Los productos seleccionados han sido eliminados con exito",
-        "success"
-      );
-      window.location.hash  ="#/abm_productos"
-      
+
     } catch (e) {
       swal("", "La operacion ha fallado", "error");
       throw e;
     }
+  });
 
-
-  })
+ 
 
   return divElement;
 };
