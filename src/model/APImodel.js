@@ -3,6 +3,12 @@ export async function getAll(url){
     return await response.json()
 }
 
+export async function getAllSearch(url, searchterm){
+  const path =  url+ "?searchterm="+ searchterm
+  const response = await fetch (path)
+  return await response.json()
+}
+
 export async function postBody(url, body){
     const response = await fetch(url, {
         method: 'POST', 

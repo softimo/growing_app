@@ -6,6 +6,7 @@ import {
   getById,
   updatebyId,
   deletebyId,
+  getAllSearch
 } from "../../model/APImodel";
 import swal from "sweetalert";
 import moment from "moment";
@@ -16,12 +17,59 @@ export default async () => {
   const urlDelete = "http://localhost:3000/sku/delete";
   const urlgetById = "http://localhost:3000/sku/getone";
   const updateUrl = "http://localhost:3000/sku/update";
+  const getSearchTermUrl = "http://localhost:3000/sku/search";
 
   const divElement = document.createElement("div");
   divElement.innerHTML = productosList;
   const tbdoyElement = divElement.querySelector("#tableSkuTbody");
-  const getAllSku = await getAll(urlGetAll);
+  const searchBar =  divElement.querySelector("#searchbar")
+  const resetSearch = divElement.querySelector("#resetSearch")
+  resetSearch.addEventListener("click", async ()=>{
+    const getAllSkuSearched = await getAllSearch(getSearchTermUrl, "")
+    tbdoyElement.innerHTML = ""
+    getAllSkuSearched.data.forEach((sku) => {
+      tbdoyElement.innerHTML += `
+      <tr>
+        <td> ${sku.codigo}</td>
+        <td> ${sku.descripcion}</td>
+        <td> ${sku.existencias}</td>
+        <td> ${sku.precio}</td>
+        <td> ${sku.categoria}</td>
+        <td> ${moment(sku.createdAt).format("DD/MM/YYYY")}</td>
+        <td> ${moment(sku.updatedAt).format("DD/MM/YYYY")}</td>
+        <td>  <input name="selection" class="form-check-input" type="checkbox" value="${
+          sku.id
+        } ">
+      </tr>
+      `;
+    });
+  })
+  searchBar.addEventListener("keydown", async (e)=>{
+    const searchterm = e.target.value
+    const getAllSkuSearched = await getAllSearch(getSearchTermUrl, searchterm)
+    tbdoyElement.innerHTML = ""
+    getAllSkuSearched.data.forEach((sku) => {
+      tbdoyElement.innerHTML += `
+      <tr>
+        <td> ${sku.codigo}</td>
+        <td> ${sku.descripcion}</td>
+        <td> ${sku.existencias}</td>
+        <td> ${sku.precio}</td>
+        <td> ${sku.categoria}</td>
+        <td> ${moment(sku.createdAt).format("DD/MM/YYYY")}</td>
+        <td> ${moment(sku.updatedAt).format("DD/MM/YYYY")}</td>
+        <td>  <input name="selection" class="form-check-input" type="checkbox" value="${
+          sku.id
+        } ">
+      </tr>
+      `;
+    });
+  })
 
+
+
+  tbdoyElement.innerHTML = ""
+  const getAllSku = await getAll(urlGetAll);
   getAllSku.data.forEach((sku) => {
     tbdoyElement.innerHTML += `
     <tr>
